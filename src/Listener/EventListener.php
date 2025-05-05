@@ -44,14 +44,28 @@ class EventListener implements Listener {
         
         if($arena !== null) {
             $event->setDeathMessage("");
-            $arena->removePlayer($player);
             
             $cause = $player->getLastDamageCause();
             if($cause instanceof EntityDamageByEntityEvent) {
                 $killer = $cause->getDamager();
                 if($killer instanceof Player) {
-                    $arena->endGame($killer);
+                    $arena->setScoreboardLines([
+                        "§7----------------",
+                        "§f" . $arena->getType()->getDisplayName() . " FFA",
+                        "§7----------------",
+                        "§cGame Over!",
+                        "§7----------------",
+                        "§fWinner: §a" . $killer->getName(),
+                        "§fKills: §a1",
+                        "§7----------------"
+                    ]);
+                    $arena->updateScoreboard();
+                    $this->plugin->getScheduler()->scheduleDelayedTask(new ClosureTask(function() use ($arena, $killer): void {
+                        $arena->endGame($killer);
+                    }), 20 * 3);
                 }
+            } else {
+                $arena->removePlayer($player);
             }
         }
     }
