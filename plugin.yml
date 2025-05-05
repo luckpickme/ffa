@@ -1,29 +1,75 @@
-name: FFA
-main: FFA\Main
-
-api: 5.0.0
+name: FFACore
 version: 1.0.0
 
-author: sheluvmyshe
-description: FFA's plugin for PMMP 5.x (beta-version)
+main: FFACore\Main
+api: 5.0.0
 
-load: POSTWORLD
+author: sheluvmyshe
+description: Advanced FFA Core with multiple game modes and systems
+
 website: https://github.com/luckpickme/ffa
+load: POSTWORLD
 
 commands:
   ffa:
     description: "Join FFA arena"
-    usage: "/ffa <mode>"
+    usage: "/ffa <nodebuff|sumo>"
     aliases: ["freeforall"]
+  ffaadmin:
+    description: "FFA admin commands"
+    usage: "/ffaadmin <setspawn|createarena|mute|ban>"
+    permission: "ffacore.admin"
+  hub:
+    description: "Teleport to hub"
+    usage: "/hub"
+    permission: "ffacore.hub"
   lang:
     description: "Change your language"
     usage: "/lang <language>"
-    aliases: ["language", "ffalang"]
+    aliases: ["language"]
+    permission: "ffacore.lang"
+  stats:
+    description: "View your stats"
+    usage: "/stats [player]"
+    permission: "ffacore.stats"
+  mute:
+    description: "Mute a player"
+    usage: "/mute <player> <time> [reason]"
+    permission: "ffacore.mute"
+  ban:
+    description: "Ban a player"
+    usage: "/ban <player> <time> [reason]"
+    permission: "ffacore.ban"
 
 permissions:
-  ffa.command.use:
-    description: "Allows to use FFA commands"
+  ffacore.player:
+    description: "Basic player permissions"
     default: true
-  ffa.command.lang:
-    description: "Allows to change language"
-    default: true
+    children:
+      ffacore.hub: true
+      ffacore.lang: true
+      ffacore.stats: true
+  
+  ffacore.vip:
+    description: "VIP player permissions"
+    default: false
+    children:
+      ffacore.player: true
+      ffacore.vip.cosmetics: true
+  
+  ffacore.moderator:
+    description: "Moderator permissions"
+    default: false
+    children:
+      ffacore.vip: true
+      ffacore.mute: true
+      ffacore.kick: true
+  
+  ffacore.admin:
+    description: "Admin permissions"
+    default: false
+    children:
+      ffacore.moderator: true
+      ffacore.ban: true
+      ffacore.bypass: true
+      ffacore.admin.commands: true

@@ -1,0 +1,71 @@
+# made by sheluvmyshe (github.com/luckpickme)
+
+# main options
+server-name: "FFA Server"
+motd: "Ultimate FFA Experience"
+max-players: 100
+
+# lobby options
+hub:
+  world: "lobby"
+  x: 0.5
+  y: 64
+  z: 0.5
+
+# arenas options
+arenas:
+  nodebuff1:
+    type: "nodebuff"
+    world: "ffa_nodebuff"
+    spawn:
+      x: 100.5
+      y: 65
+      z: 100.5
+  sumo1:
+    type: "sumo"
+    world: "ffa_sumo"
+    spawn:
+      x: 50.5
+      y: 70
+      z: 50.5
+
+# protect options
+spawn-protection:
+  world: "lobby"
+  radius: 30
+
+# database options
+database:
+  type: "leveldb"
+  path: "data/"
+
+# kit options
+kits:
+  nodebuff:
+    sword:
+      type: "diamond_sword"
+      enchantments:
+        sharpness: 2
+    potions:
+      healing: 3
+      fire_resistance: 3
+    golden_apples: 8
+  sumo:
+    effects:
+      resistance: 4
+      speed: 1
+
+# rank options
+ranks:
+  default:
+    name: "Member"
+    prefix: "§7"
+    permissions: []
+  vip:
+    name: "VIP"
+    prefix: "§a[VIP] "
+    permissions: ["ffa.vip"]
+  admin:
+    name: "Admin"
+    prefix: "§c[ADMIN] "
+    permissions: ["ffa.admin"]
