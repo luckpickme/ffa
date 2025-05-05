@@ -29,6 +29,7 @@ class Main extends PluginBase {
         
         $this->getServer()->getCommandMap()->register("ffa", new Command\FFACommand($this));
         $this->getServer()->getPluginManager()->registerEvents(new Listener\EventListener($this), $this);
+        $this->getServer()->getCommandMap()->register("ffa", new Command\LangCommand($this));
         
         $this->getScheduler()->scheduleRepeatingTask(new Task\GameTask($this), 20);
     }

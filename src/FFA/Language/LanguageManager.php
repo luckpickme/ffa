@@ -40,15 +40,40 @@ class LanguageManager {
         
         return $message;
     }
-    
-    private function getPlayerLanguage(Player $player): string {
-        return $this->defaultLang;
+
+    public function getAvailableLanguages(): array {
+        return [
+            "en_us" => "English",
+            "ru_ru" => "Русский",
+        ];
     }
     
-    public function setPlayerLanguage(Player $player, string $lang): bool {
-        if(isset($this->messages[$lang])) {
-            return true;
+    public function setPlayerLanguage(Player $player, string $langCode): bool {
+        $langCode = strtolower($langCode);
+        $available = $this->getAvailableLanguages();
+        
+        if(!isset($available[$langCode])) {
+            return false;
         }
-        return false;
+        
+        $config = new Config($this->plugin->getDataFolder() . "player_languages.yml", Config::YAML);
+        $config->set($player->getName(), $langCode);
+        $config->save();
+        
+        return true;
+    }
+    
+    public function getPlayerLanguage(Player $player): string {
+        $config = new Config($this->plugin->getDataFolder() . "player_languages.yml", Config::YAML);
+        $savedLang = $config->get($player->getName());
+        
+        if($savedLang !== null && isset($this->messages[$savedLang])) {
+            return $savedLang;
+        }
+        
+        $clientData = $player->getNetworkSession()->getPlayerInfo()->getExtraData();
+        $clientLang = strtolower($clientData["LanguageCode"] ?? "en_us");
+        
+        return isset($this->messages[$clientLang]) ? $clientLang : $this->defaultLang;
     }
 }

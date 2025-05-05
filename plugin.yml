@@ -15,15 +15,15 @@ commands:
     description: "Join FFA arena"
     usage: "/ffa <mode>"
     aliases: ["freeforall"]
-  ffaadmin:
-    description: "FFA admin commands"
-    usage: "/ffaadmin <create|delete|setspawn>"
-    permission: "ffa.admin"
+  lang:
+    description: "Change your language"
+    usage: "/lang <language>"
+    aliases: ["language", "ffalang"]
 
 permissions:
   ffa.command.use:
     description: "Allows to use FFA commands"
     default: true
-  ffa.admin:
-    description: "Allows to manage FFA arenas"
-    default: op
+  ffa.command.lang:
+    description: "Allows to change language"
+    default: true
