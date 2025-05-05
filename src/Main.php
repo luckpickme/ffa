@@ -10,11 +10,13 @@ class Main extends PluginBase {
     
     private ArenaManager $arenaManager;
     private KitManager $kitManager;
+    private ScoreboardManager $scoreboardManager;
     
     public function onEnable(): void {
         $this->saveDefaultConfig();
         $this->arenaManager = new ArenaManager($this);
         $this->kitManager = new KitManager($this);
+        $this->scoreboardManager = new ScoreboardManager();
         
         $this->getServer()->getCommandMap()->register("ffa", new Command\FFACommand($this));
         $this->getServer()->getPluginManager()->registerEvents(new Listener\EventListener($this), $this);
@@ -28,5 +30,9 @@ class Main extends PluginBase {
     
     public function getKitManager(): KitManager {
         return $this->kitManager;
+    }
+
+    public function getScoreboardManager(): ScoreboardManager {
+        return $this->scoreboardManager;
     }
 }
