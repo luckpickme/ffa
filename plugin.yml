@@ -1,0 +1,29 @@
+name: FFA
+main: FFA\Main
+
+api: 5.0.0
+version: 1.0.0
+
+author: sheluvmyshe
+description: FFA's plugin for PMMP 5.x (beta-version)
+
+load: POSTWORLD
+website: https://github.com/luckpickme/ffa
+
+commands:
+  ffa:
+    description: "Join FFA arena"
+    usage: "/ffa <mode>"
+    aliases: ["freeforall"]
+  ffaadmin:
+    description: "FFA admin commands"
+    usage: "/ffaadmin <create|delete|setspawn>"
+    permission: "ffa.admin"
+
+permissions:
+  ffa.command.use:
+    description: "Allows to use FFA commands"
+    default: true
+  ffa.admin:
+    description: "Allows to manage FFA arenas"
+    default: op
